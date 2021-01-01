@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from 'next/router';
 import firebase from "firebase";
 import {User} from '../../models/User';
-import {route} from "next/dist/next-server/server/router";
+import Layout from "../../components/Layout";
 
 type Query = {
     uid: string
@@ -35,5 +35,14 @@ export default function UserShow() {
 
         loadUser();
     }, [query.uid])
-    return <div>{user ? user.name : 'ロード中'}</div>
+    return (
+        <Layout>
+            {user && (
+                <div className="text-center">
+                    <h1 className="h4">{user.name}さんのページ</h1>
+                    <div className="m-5">{user.name}さんに質問しよう！</div>
+                </div>
+            )}
+        </Layout>
+    )
 }
